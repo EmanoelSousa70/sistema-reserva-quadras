@@ -1,0 +1,19 @@
+{
+  "name": "sistema-reserva-quadras",
+  "version": "2.0.0",
+  "description": "Aplicacao academica com front-end, Next.js API e PostgreSQL/Neon para reserva de quadras esportivas.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
+}
