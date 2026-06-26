@@ -26,7 +26,7 @@ export default function Home() {
       <main className="layout">
         <section className="panel">
           <div className="section-title">
-            <h2>Quadras</h2>
+            <h2>Gerenciar quadras</h2>
             <select id="ordenacaoQuadras" title="Ordenar quadras">
               <option value="nome">Nome</option>
               <option value="tipo">Tipo</option>
@@ -49,7 +49,7 @@ export default function Home() {
 
         <section className="panel">
           <div className="section-title">
-            <h2>Reservas</h2>
+            <h2>Criar e gerenciar reservas</h2>
             <select id="ordenacaoReservas" title="Ordenar reservas"><option value="data">Data e horario</option><option value="cliente">Cliente</option><option value="quadra">Quadra</option></select>
           </div>
 
@@ -66,12 +66,15 @@ export default function Home() {
             <div className="form-actions"><button type="submit">Salvar reserva</button><button id="limparFormularioReserva" className="secondary" type="button">Limpar</button></div>
           </form>
 
-          <div id="listaReservas" className="item-list"></div>
-        </section>
+          <div className="schedule-box">
+            <div className="section-title compact-title">
+              <h2>Horarios da quadra selecionada</h2>
+              <button id="atualizarDisponibilidade" className="secondary" type="button">Atualizar</button>
+            </div>
+            <div id="quadroDisponibilidade" className="schedule-grid"></div>
+          </div>
 
-        <section className="panel schedule-panel">
-          <div className="section-title"><h2>Horarios</h2><button id="atualizarDisponibilidade" className="secondary" type="button">Atualizar</button></div>
-          <div id="quadroDisponibilidade" className="schedule-grid"></div>
+          <div id="listaReservas" className="item-list"></div>
         </section>
       </main>
 

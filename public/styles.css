@@ -127,16 +127,21 @@ h2 {
   background: linear-gradient(90deg, var(--primary), var(--accent));
 }
 
-.schedule-panel {
-  grid-column: 1 / -1;
-}
-
 .section-title {
   display: grid;
   grid-template-columns: auto minmax(180px, 260px);
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
+}
+
+.compact-title {
+  grid-template-columns: 1fr auto;
+  margin-bottom: 12px;
+}
+
+.compact-title h2 {
+  font-size: 1rem;
 }
 
 .form-grid {
@@ -263,6 +268,16 @@ button:hover {
   gap: 10px;
 }
 
+.schedule-box {
+  margin: 4px 0 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(22, 128, 56, 0.07), transparent 54%),
+    var(--surface-soft);
+}
+
 .item {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -326,13 +341,16 @@ button:hover {
 
 .schedule-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  gap: 8px;
+  max-height: 210px;
+  overflow: auto;
+  padding-right: 2px;
 }
 
 .slot {
-  min-height: 64px;
-  padding: 10px;
+  min-height: 56px;
+  padding: 9px;
   border-radius: 8px;
   border: 1px solid var(--line);
   font-weight: 700;
@@ -405,7 +423,7 @@ button:hover {
   transform: translateY(0);
 }
 
-@media (max-width: 920px) {
+  @media (max-width: 920px) {
   .layout,
   .form-grid,
   .section-title,
