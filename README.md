@@ -1,13 +1,13 @@
 # Sistema de Reserva de Quadras
 
-Aplicacao academica com front-end em HTML/CSS/JavaScript, manipulacao de DOM, API em Next.js e banco PostgreSQL hospedado no Neon.
+Aplicacao academica com front-end em HTML, CSS, JavaScript e manipulacao de DOM, back-end em Express.js e banco PostgreSQL hospedado no Neon.
 
 ## Tecnologias
 
 - Front-end: HTML, CSS, JavaScript e DOM.
-- API/back-end: Next.js API Routes.
+- Back-end: Node.js com Express.js.
 - Banco de dados: PostgreSQL no Neon.
-- Hospedagem sugerida: Vercel.
+- Hospedagem sugerida para Express: Render ou Railway.
 
 ## Como executar localmente
 
@@ -26,6 +26,12 @@ DATABASE_URL="sua_url_do_neon"
 3. Rode o projeto:
 
 ```bash
+npm start
+```
+
+Ou, para desenvolvimento:
+
+```bash
 npm run dev
 ```
 
@@ -37,20 +43,6 @@ http://localhost:3000
 
 As tabelas `quadras` e `reservas` sao criadas automaticamente no banco Neon na primeira chamada da API.
 
-## Como hospedar
-
-1. Crie um banco gratuito no Neon.
-2. Copie a connection string do Neon.
-3. Envie o projeto para um repositorio no GitHub.
-4. Importe o repositorio na Vercel.
-5. Em `Settings > Environment Variables`, cadastre:
-
-```text
-DATABASE_URL=sua_url_do_neon
-```
-
-6. Faca o deploy.
-
 ## Requisitos atendidos
 
 - Duas entidades relacionadas 1:N: `quadras` e `reservas`.
@@ -61,15 +53,34 @@ DATABASE_URL=sua_url_do_neon
 - Ordenacao no servidor.
 - Uso de `localStorage` para tema, ultima quadra selecionada e ultima ordenacao.
 - Persistencia em banco PostgreSQL/Neon.
-- Preparado para hospedagem gratuita na Vercel.
+- Back-end feito com Express.js.
 
 ## Tratamento de erros
 
 - `400`: dados obrigatorios ou formato invalido.
 - `404`: quadra ou reserva nao encontrada.
-- `405`: metodo HTTP nao permitido.
 - `409`: conflito de horario na reserva.
 - `500`: erro interno do servidor.
+
+## Hospedagem no Render
+
+1. Envie o projeto para o GitHub.
+2. Acesse Render e crie um novo `Web Service`.
+3. Conecte o repositorio do GitHub.
+4. Configure:
+
+```text
+Build Command: npm install
+Start Command: npm start
+```
+
+5. Em `Environment`, adicione:
+
+```text
+DATABASE_URL=sua_url_real_do_neon
+```
+
+6. Faca o deploy.
 
 ## Roteiro sugerido para o video
 
@@ -81,4 +92,4 @@ DATABASE_URL=sua_url_do_neon
 6. Tentar cadastrar duas reservas no mesmo horario para provar a regra do servidor.
 7. Mostrar a ordenacao e o uso do localStorage.
 8. Mostrar a variavel `DATABASE_URL` e explicar que os dados ficam no Neon.
-9. Mostrar o deploy na Vercel.
+9. Mostrar o deploy.
