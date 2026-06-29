@@ -66,6 +66,10 @@ function formatarCpf(valor) {
     .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 }
 
+function dataHoje() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 async function requisitarJson(url, opcoes) {
   const resposta = await fetch(url, Object.assign({ headers: { "Content-Type": "application/json" } }, opcoes || {}));
   if (resposta.status === 204) return null;
@@ -95,6 +99,7 @@ function validarFormularioReserva(dados) {
   }
 
   if (cpf.length !== 11) return "Informe um CPF com 11 numeros.";
+  if (dados.data_reserva < dataHoje()) return "Nao e permitido reservar datas passadas.";
   if (dados.hora_fim <= dados.hora_inicio) return "O horario final deve ser maior que o horario inicial.";
 
   return "";
@@ -158,7 +163,7 @@ function renderizarQuadras() {
 }
 
 function renderizarSelectQuadras() {
-  const ultimaQuadra = localStorage.getItem("ultimaQuadra");
+  const quadraSelecionada = elementos.quadraReserva.value || localStorage.getItem("ultimaQuadra");
   elementos.quadraReserva.innerHTML = '<option value="">Selecione</option>';
 
   estado.quadras
@@ -167,7 +172,7 @@ function renderizarSelectQuadras() {
       const opcao = document.createElement("option");
       opcao.value = quadra.id;
       opcao.textContent = quadra.nome;
-      if (String(quadra.id) === ultimaQuadra) opcao.selected = true;
+      if (String(quadra.id) === quadraSelecionada) opcao.selected = true;
       elementos.quadraReserva.appendChild(opcao);
     });
 }
@@ -197,10 +202,26 @@ async function carregarDisponibilidade() {
   const data = elementos.dataReserva.value;
   elementos.quadroDisponibilidade.innerHTML = "";
 
-  if (!quadraId || !data) {
+  if (!quadraId && !data) {
     const horario = document.createElement("div");
     horario.className = "slot unavailable";
     horario.textContent = "Selecione uma quadra e uma data";
+    elementos.quadroDisponibilidade.appendChild(horario);
+    return;
+  }
+
+  if (!quadraId) {
+    const horario = document.createElement("div");
+    horario.className = "slot unavailable";
+    horario.textContent = "Selecione a quadra para ver os horarios";
+    elementos.quadroDisponibilidade.appendChild(horario);
+    return;
+  }
+
+  if (!data) {
+    const horario = document.createElement("div");
+    horario.className = "slot unavailable";
+    horario.textContent = "Escolha a data para ver os horarios livres";
     elementos.quadroDisponibilidade.appendChild(horario);
     return;
   }
@@ -237,13 +258,18 @@ elementos.formularioQuadra.addEventListener("submit", async function (evento) {
 
   try {
     const id = elementos.quadraId.value;
-    await requisitarJson(id ? rotasApi.quadras + "/" + id : rotasApi.quadras, {
+    const quadraSalva = await requisitarJson(id ? rotasApi.quadras + "/" + id : rotasApi.quadras, {
       method: id ? "PUT" : "POST",
       body: JSON.stringify(dados)
     });
 
     limparQuadra();
+    if (quadraSalva.status === "ativa") {
+      localStorage.setItem("ultimaQuadra", String(quadraSalva.id));
+    }
     await carregarQuadras();
+    elementos.quadraReserva.value = quadraSalva.status === "ativa" ? String(quadraSalva.id) : elementos.quadraReserva.value;
+    await carregarDisponibilidade();
     mostrarAviso("Quadra salva com sucesso.");
   } catch (erro) {
     mostrarAviso(erro.message);
@@ -382,6 +408,7 @@ elementos.atualizarDisponibilidade.addEventListener("click", carregarDisponibili
 async function iniciarAplicacao() {
   const hoje = new Date().toISOString().slice(0, 10);
   elementos.dataReserva.value = hoje;
+  elementos.dataReserva.min = hoje;
   elementos.ordenacaoQuadras.value = localStorage.getItem("quadrasOrdenacao") || "nome";
   elementos.ordenacaoReservas.value = localStorage.getItem("reservasOrdenacao") || "data";
 

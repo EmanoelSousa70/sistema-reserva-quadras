@@ -103,6 +103,10 @@ function ehHorario(valor) {
   return /^\d{2}:\d{2}$/.test(valor);
 }
 
+function dataHoje() {
+  return new Date().toISOString().slice(0, 10);
+}
+
 function somenteNumeros(valor) {
   return String(valor || "").replace(/\D/g, "");
 }
@@ -128,6 +132,10 @@ function validarReserva(dados) {
   if (!ehHorario(dados.hora_inicio)) erros.push("Horario de inicio e obrigatorio.");
   if (!ehHorario(dados.hora_fim)) erros.push("Horario de termino e obrigatorio.");
   if (!Number.isInteger(Number(dados.quadra_id))) erros.push("Quadra e obrigatoria.");
+
+  if (ehData(dados.data_reserva) && dados.data_reserva < dataHoje()) {
+    erros.push("Nao e permitido reservar datas passadas.");
+  }
 
   if (ehHorario(dados.hora_inicio) && ehHorario(dados.hora_fim) && dados.hora_fim <= dados.hora_inicio) {
     erros.push("Horario final deve ser maior que o horario inicial.");
