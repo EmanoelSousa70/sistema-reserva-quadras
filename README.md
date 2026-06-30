@@ -3,7 +3,7 @@
 Aplicacao academica com front-end em HTML, CSS, JavaScript e manipulacao de DOM, back-end em Express.js e banco PostgreSQL hospedado no Neon.
 
 Alunos : Emanoel Sousa, Paulo do Carmo , Osvaldo Cavalcante .
-
+## LINK VIDEO : https://youtu.be/8K3LIKgNVqU
 ## Tecnologias
 
 - Front-end: HTML, CSS, JavaScript e DOM.
