@@ -2,6 +2,8 @@
 
 Aplicacao academica com front-end em HTML, CSS, JavaScript e manipulacao de DOM, back-end em Express.js e banco PostgreSQL hospedado no Neon.
 
+Alunos : Emanoel Sousa, Paulo do Carmo , Osvaldo Cavalcante .
+
 ## Tecnologias
 
 - Front-end: HTML, CSS, JavaScript e DOM.
@@ -81,15 +83,3 @@ DATABASE_URL=sua_url_real_do_neon
 ```
 
 6. Faca o deploy.
-
-## Roteiro sugerido para o video
-
-1. Apresentar a ideia do sistema e os integrantes.
-2. Mostrar as duas entidades e o relacionamento 1:N.
-3. Demonstrar cadastro, edicao, listagem e remocao de quadras.
-4. Demonstrar criacao, edicao, cancelamento e listagem de reservas.
-5. Mostrar as validacoes do formulario.
-6. Tentar cadastrar duas reservas no mesmo horario para provar a regra do servidor.
-7. Mostrar a ordenacao e o uso do localStorage.
-8. Mostrar a variavel `DATABASE_URL` e explicar que os dados ficam no Neon.
-9. Mostrar o deploy.
